@@ -1,0 +1,99 @@
+ <?php
+ $error="";
+ 
+ if($_POST){
+	
+	if(!$_POST["email"])
+	{
+		$error=$error."an email adress is required.<br>";
+	}
+ 
+    if(!$_POST["textarea1"])
+	{
+		$error=$error."a subject is required.<br>";
+	} 
+	if(!$_POST["textarea2"])
+	{
+		$error=$error."text is required.<br>";
+	}
+	if($error!="")
+	{
+		$error=('<div class="alert alert-danger" role="alert"><p><strong>Oh snap!</strong></p>'.$error.'</div>');
+	} 
+	else{
+		$emailTo="xyz@gmail.com";
+		$subject=$_POST['subject'];
+		$content=$_POST['content'];
+		$headers="From: ".$_POST['email'];
+		if(mail($emailTo,$subject,$content,$headers)){
+			$successMessage='<div class="alert alert-success" role="alert">your message has been sent!</div>';
+		}	
+		
+		else{
+			$error='<div class="alert alert-danger" role="alert"><p><strong>your message could not be sent</strong></p></div>';
+			
+		}
+			
+			
+	}
+		
+	
+
+ }
+	?>
+	
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<div class ="container">
+<p><h2>Get in touch!</h2></p>
+<div id="error"><?echo $error.$successMessage;?></div>
+<form method="post">
+  <div class="form-group">
+    <label for="input1">Email address</label>
+    <input type="email" class="form-control" id="input1" name="email" placeholder="name@example.com">
+  <small class="text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  
+  <div class="form-group">
+   <label for="textarea1">Subject</label>
+   <textarea class="form-control" id="textarea1" name="subject" rows="1"></textarea>
+   </div>
+
+<div class="form-group">
+   <label for="textarea2">what would you like to say?</label>
+   <textarea class="form-control" id="textarea2" name="content" rows="3"></textarea>
+   </div>
+   
+   <div>
+    <button type=submit" class="btn btn-info">Submit</button>
+   </div>
+
+
+</div>
+</form>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script src="jquery-ui.js"></script>
+<link href="jquery-ui.css" rel="stylesheet">
+
+
+<script type="text/javascript">
+$("form").submit(function(e){
+	e.preventDefault();
+	
+	var error="";
+	if($("#textarea1").val()==""){
+		error=error+"<p>The subject field is required.</p>";
+	}
+	
+	if($("#textarea1").val()==""){
+		error=error+"<p>The content is required.</p>";
+	}
+	
+	if(error!="")
+	{
+		$("#error").html('<div class="alert alert-danger" role="alert"><p><strong>Oh snap!</strong></p>'+error+'</div>');
+	}
+	
+});
+
+</script>
