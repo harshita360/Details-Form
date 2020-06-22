@@ -1,2 +1,2 @@
 # Details-Form
-Form submission to email with server side validation
+Form submission to an email account with server side validation
